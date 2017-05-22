@@ -5,7 +5,7 @@ from django.db import models
 from webapp.models import Vendor, Token, Barcode
 import datetime
 import webapp.barcodevalidator
-from barcodevalidator import validateAndIncrement, validateBarcode, incrementCount
+from barcodevalidator import insertToken, validateBarcode, countToken
 
 class validateTest (TestCase):
 
@@ -16,13 +16,14 @@ class validateTest (TestCase):
 		barcode2 = Barcode(barcode = 1112)
 		barcode2.save()
 
-		vendorTokenCountForDate = Token.objects.get(tokenDate = datetime.datetime.now().date(), vendor = 1)
-		self.assertEqual(vendorTokenCountForDate.tokenCount, 0)
-		
-		returnBool = validateAndIncrement(1111,1)
-		self.assertTrue(returnBool)
+		insertToken(1111,'V1')
+		insertToken(1112,'V1')
+		insertToken(1111,'V2')
 
-		vendorTokenCountForDate = Token.objects.get(tokenDate = datetime.datetime.now().date(), vendor = 1)
-		self.assertEqual(vendorTokenCountForDate.tokenCount, 0)
+		self.assertEqual(countToken('V1'), 2)
+
+		self.assertTrue(countToken(1111,'V1'), 1)
+
+		self.assertEqual(countToken(1112,'V1'), 1)
 
 		

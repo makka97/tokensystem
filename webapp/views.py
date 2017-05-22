@@ -34,11 +34,21 @@ class Purchase(View):
 		startDate = request.GET.get('startDate')
 		endDate = request.GET.get('endDate')
 		barcode = request.GET.get('barcode')
-		try:
-			numberOfTokens = barcodevalidator.countToken(startDate, endDate, barcode)
-			tokenCount = {'tokencount': numberOfTokens}
-			jsonTokenCount = json.dumps(tokenCount)
+		vendorName = request.GET.get('vendorName')
+		
+		if vendorName is None:
+			jsonTokenCount = json.dumps(tokenCountObject(barcode))
 			return JsonResponse(jsonTokenCount, safe=False)
-		except ValueError:
+
+		elif Vendor.objects.filter(vendorName = vendorName).count == 0 :
 			return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
+		
+		else:
+			try:
+				numberOfTokens = barcodevalidator.countToken(startDate, endDate, barcode, vendorName)
+				tokenCount = {'tokencount': numberOfTokens}
+				jsonTokenCount = json.dumps(tokenCount)
+				return JsonResponse(jsonTokenCount, safe=False)
+			except ValueError:
+				return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
 

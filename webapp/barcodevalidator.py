@@ -16,7 +16,7 @@ def insertToken (barcodeIn, vendorNameIn):
 	insertDateTime = Token(tokenDateTime = datetime.now(), vendor = vendor, barcode = barcode)
 	insertDateTime.save()	
 
-def countToken(startDateIn, endDateIn, barcodeIn):
+def countToken(startDateIn, endDateIn, barcodeIn, vendorName):
 	startDate = datetime(datetime.now().year, datetime.now().month, datetime.now().day)
 	endDate = datetime.now()
 
@@ -27,9 +27,20 @@ def countToken(startDateIn, endDateIn, barcodeIn):
 		endDate = datetime.strptime(endDateIn, '%m/%d/%Y %I:%M:%S %p')
 
 	if barcodeIn is not None:
-		numberOfTokens = Token.objects.filter(barcode=barcodeIn).filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
+		numberOfTokens = Token.objects.filter(vendor=vendorName).filter(barcode=barcodeIn).filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
 	else:
-		numberOfTokens = Token.objects.filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
+		numberOfTokens = Token.objects.filter(vendor=vendorName).filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
 	
 	return numberOfTokens
+	
+def tokenCountObject(barcodeIn):
+	if barcodeIn is not None:
+		listObj = Token.objects.filter(barcode_id__barcode = barcodeIn).values('vendor_id__vendorName').annotate(vendor_count=Count('vendor_id')).replace('barcode_id__barcode','barcode')
+	else:
+		listObj = Token.objects.values('vendor_id__vendorName').annotate(vendor_count=Count('vendor_id'))
+
+	listObj = str(listObj).replace('vendor_id__vendorName','vendorName')
+
+	return listObj
+	
 	
