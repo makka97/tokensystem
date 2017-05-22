@@ -11,6 +11,10 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 def index(request):
     return HttpResponse("<h2>Hey!</h2>")
@@ -23,10 +27,14 @@ class Purchase(View):
 		data = json.loads(jsonData)
 		barcodeNumber = data['barcodeNumber']
 		vendorName = data['vendorName']
+		logger.info('Finished decoding Json POST request')
+
 		if barcodevalidator.validateBarcode(barcodeNumber):
 			barcodevalidator.insertToken(barcodeNumber, vendorName)
+			logger.info('Validating and inserting done')
 			return HttpResponse(content='success', content_type='text/html', status=200, reason=None, charset=None)
 		else:
+			logger.info('Could not validate barcode ' + barcodeNumber)
 			return HttpResponse(content='failure', content_type='text/html', status=401, reason=None, charset=None)
 
 	@csrf_exempt
@@ -35,19 +43,25 @@ class Purchase(View):
 		endDate = request.GET.get('endDate')
 		barcode = request.GET.get('barcode')
 		vendorName = request.GET.get('vendorName')
-		
+		logger.info('Finished decoding Json GET request')
+
 		if vendorName is None:
-			jsonTokenCount = json.dumps(tokenCountObject(barcode))
+			jsonTokenCount = json.dumps(countAllVendorTokens(barcode))
+			logger.info('Vendor field is blank')
 			return JsonResponse(jsonTokenCount, safe=False)
 
 		elif Vendor.objects.filter(vendorName = vendorName).count == 0 :
+			logger.info('Invalid vendor')
 			return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
 		
 		else:
+			logger.info('Vendor given')
 			try:
 				numberOfTokens = barcodevalidator.countToken(startDate, endDate, barcode, vendorName)
+				logger.info('No error thrown')
 				tokenCount = {'tokencount': numberOfTokens}
 				jsonTokenCount = json.dumps(tokenCount)
+				logger.info('Coded to json')
 				return JsonResponse(jsonTokenCount, safe=False)
 			except ValueError:
 				return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
