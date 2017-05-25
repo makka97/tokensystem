@@ -7,12 +7,13 @@ import datetime
 import barcodevalidator
 import BarcodeView
 import logging
+from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
 class validateTest (TestCase):
 
-	def tests(self):
+	def validateTokenCountNoDate(self):
 		BarcodeView.addBarcode(1111,'B1')
 		BarcodeView.addBarcode(1112,'B2')
 
@@ -28,6 +29,7 @@ class validateTest (TestCase):
 		self.assertEqual(barcodevalidator.countToken(None,None,1111,'V1'), 1)
 
 		self.assertEqual(barcodevalidator.countToken(None,None,1112,'V1'), 1)
+
 
 		
 

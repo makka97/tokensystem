@@ -7,6 +7,7 @@ from webapp import barcodevalidator
 from webapp.models import Vendor, Token, Barcode
 import logging
 
+logging.basicConfig(filename = 'test.log', level = logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Create your views here.

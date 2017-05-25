@@ -4,7 +4,9 @@ import datetime
 from datetime import datetime
 import json
 import logging
+from django.db.models import Count
 
+logging.basicConfig(filename = 'test.log', level = logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 #request has barcodeNumber and vendorId
@@ -26,11 +28,11 @@ def countToken(startDateIn, endDateIn, barcodeIn, vendorName):
 	endDate = datetime.now()
 
 	if startDateIn is not None:
-		startDate = datetime.strptime(startDateIn, '%m/%d/%Y %I:%M:%S %p')
+		startDate = datetime.strptime(startDateIn, "%m/%d/%Y %H:%M:%S")
 		logger.info('Start date is given date')
 	
 	if endDateIn is not None:
-		endDate = datetime.strptime(endDateIn, '%m/%d/%Y %I:%M:%S %p')
+		endDate = datetime.strptime(endDateIn, "%m/%d/%Y %H:%M:%S")
 		logger.info('End date is given date')
 
 	if barcodeIn is not None:

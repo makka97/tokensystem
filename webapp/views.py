@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 
 import logging
 
+logging.basicConfig(filename = 'test.log', level = logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Create your views here.
@@ -46,7 +47,7 @@ class Purchase(View):
 		logger.info('Finished decoding Json GET request')
 
 		if vendorName is None:
-			jsonTokenCount = json.dumps(countAllVendorTokens(barcode))
+			jsonTokenCount = barcodevalidator.countAllVendorTokens(barcode)
 			logger.info('Vendor field is blank')
 			return JsonResponse(jsonTokenCount, safe=False)
 
