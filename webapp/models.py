@@ -10,7 +10,7 @@ def __unicode__(self):
     return self.Vendor
 
 class Barcode(models.Model):
-    barcode = models.IntegerField(default=0)
+    barcode = models.CharField(max_length=50)
     barcodeName = models.CharField(max_length=500)
 
 def __unicode__(self): 

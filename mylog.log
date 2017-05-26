@@ -1,0 +1,18 @@
+2017-05-25 15:36:48,042 [INFO] webapp.BarcodeView: Barcode added
+2017-05-25 15:36:48,045 [INFO] webapp.BarcodeView: Barcode added
+2017-05-25 15:36:48,088 [INFO] webapp.barcodevalidator: Barcode is not given when vendor is given
+2017-05-25 15:36:48,114 [INFO] webapp.barcodevalidator: End date is given date
+2017-05-25 15:36:48,115 [INFO] webapp.barcodevalidator: Barcode is not given when vendor is given
+2017-05-25 15:36:48,115 [INFO] webapp.barcodevalidator: Start date is given date
+2017-05-25 15:36:48,115 [INFO] webapp.barcodevalidator: End date is given date
+2017-05-25 15:36:48,118 [INFO] webapp.barcodevalidator: Start date is given date
+2017-05-25 15:36:48,118 [INFO] webapp.barcodevalidator: End date is given date
+2017-05-25 15:43:17,400 [INFO] webapp.BarcodeView: Barcode added
+2017-05-25 15:43:17,401 [INFO] webapp.BarcodeView: Barcode added
+2017-05-25 15:43:17,417 [INFO] webapp.barcodevalidator: Barcode is not given when vendor is given
+2017-05-25 15:43:17,424 [INFO] webapp.barcodevalidator: End date is given date
+2017-05-25 15:43:17,426 [INFO] webapp.barcodevalidator: Barcode is not given when vendor is given
+2017-05-25 15:43:17,426 [INFO] webapp.barcodevalidator: Start date is given date
+2017-05-25 15:43:17,426 [INFO] webapp.barcodevalidator: End date is given date
+2017-05-25 15:43:17,427 [INFO] webapp.barcodevalidator: Start date is given date
+2017-05-25 15:43:17,427 [INFO] webapp.barcodevalidator: End date is given date
