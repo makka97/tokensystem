@@ -11,6 +11,9 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+from webapp import BarcodeView
+from BarcodeView import addBarcodeNumber
+
 import logging
 
 logging.basicConfig(filename = 'test.log', level = logging.DEBUG)
@@ -35,7 +38,7 @@ class Purchase(View):
 			logger.info('Validating and inserting done')
 			return HttpResponse(content='success', content_type='text/html', status=200, reason=None, charset=None)
 		else:
-			logger.info('Could not validate barcode ' + barcodeNumber)
+			logger.error('Could not validate barcode ' + str(barcodeNumber))
 			return HttpResponse(content='failure', content_type='text/html', status=401, reason=None, charset=None)
 
 	@csrf_exempt
@@ -67,3 +70,17 @@ class Purchase(View):
 			except ValueError:
 				return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
 
+@method_decorator(csrf_exempt, name='dispatch')
+class BarcodeView(View):
+
+	@csrf_exempt
+	def post(self, request):
+		jsonData =  request.read() 
+		data = json.loads(jsonData)
+		barcodeNumber = data['barcodeNumber']
+		name = data['Name']
+		logger.info('Json decoded while adding barcode')
+		addBarcodeNumber(barcodeNumber,name)
+		return HttpResponse(content='success', content_type='text/html', status=200, reason=None, charset=None)
+
+	

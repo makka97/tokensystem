@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 from webapp.views import Purchase
 from . import viewsAddBarcode
-from webapp.BarcodeView import BarcodeView
+from webapp.views import BarcodeView
 
 
 urlpatterns = [

@@ -1,0 +1,25 @@
+1.	Admin form for accepting dates and giving count for all vendors’ tokens within those dates
+2.	Making Token table read-only in admin (Currently I can edit/delete the bar-code and the records in the tokens table, shouldn’t be allowed) - Done
+3.	Client side – Adding an API call to insert our barcodes into the system. - Done
+4.	Client side – Fixing the 0 that comes on the counter when we scan an unauthorized barcode. - Done
+5.	Client side – Fancy UI (that label) for showing counter value for the day
+6.	Client side - Running the Barcode reader application and the UI simultaneously. - Done
+7.	Fixing the “Static files” problem that messing up our admin UI. 
+8.	Production deployment to the machine running in the office.
+9.	The rest of the tests that we may have missed (I noticed some issues in the code).
+10.	Your chota LCD counter display instead of the big expensive screen (This one you will do so that you can teach me)
+11.	Client side - Starting App by default
+12.	Not adding barcode if it exists - Done
+13. 	Invisible, focus on app
+
+14.	Employee id - Done
+15.	Facility instead of vendor
+16.	15 extra barcode
+17.	Backup database
+18.	Export to excel
+19.	Test production machine remote access
+20. 	Employee Id primary key - Not possible
+
+def get_queryset(self, request):
+qs = Token.objects.values('vendor_id__vendorName').annotate(num_tokens=Count('vendor_id'))
+return qs

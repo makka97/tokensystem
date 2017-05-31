@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 't#d)i&()*)*pcvfk7oislqhldn&-!c=t7rfwoj)jb)a4lavyme'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -64,6 +64,10 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False
         },
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['request_handler'],
+        }
     }
 }
 
@@ -151,7 +155,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'IST'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 

@@ -1,27 +1,27 @@
 import json
 import requests, sys, argparse
-#from tkinter import *
+import Tkinter as tk
 
 parser = argparse.ArgumentParser()
 parser.add_argument("url", help="Base url for tokens server")
 args = parser.parse_args()
-"""root = tkinter.Tk()
+
+root = tk.Tk()
+root.attributes('-fullscreen', True)
 root.title("Token Count")
-countLabel = Tkinter.Label(root)"""
+countLabel = tk.Label(root)
 
-def requestsToServer():
-    purchasePostRes = requests.post(args.url, data = json.dumps({'barcodeNumber':inp, 'vendorName':'V1'}))
-
+def incrementCountForVendor(event):
+    purchasePostRes = requests.post(args.url, data = json.dumps({'barcodeNumber':entrytext.get(), 'vendorName':'V1'}))
     if purchasePostRes.status_code == 200:
-        tokensCountRes = requests.get(args.url+'?vendorName=V1')
-        #countLabel.config(text = tokensCountRes.text)
+        countLabel.config(text = requests.get(args.url+'?vendorName=V1').text, font = '100')
     else:
-        #countLabel.config(text = "Error from Server: Invalid barcode : " + inp, fg = "red" )
+        countLabel.config(text = 'Could not validate barcode ' + str(entrytext.get()) + requests.get(args.url+'?vendorName=V1').text, font = '100')
+    countLabel.pack()
+    event.widget.delete(0, 'end')
 
-
-while True:
-    inp = raw_input()
-    if inp == "":
-        continue
-    else:
-        requestsToServer()
+entrytext = tk.StringVar()
+txBox = tk.Entry(root, textvariable=entrytext, width = 25)
+txBox.bind('<Return>', incrementCountForVendor)
+txBox.pack()
+root.mainloop()

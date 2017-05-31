@@ -11,20 +11,11 @@ logging.basicConfig(filename = 'test.log', level = logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Create your views here.
-def addBarcode(barcodeNumberIn,nameIn):
+def addBarcodeNumber(barcodeNumberIn,nameIn):
 	addBarcode = Barcode()
-	addBarcode.barcode = barcodeNumberIn
-	addBarcode.barcodeName = nameIn
-	addBarcode.save()
-	logger.info('Barcode added')
-
-class BarcodeView(View):
-
-	def post(self, request):
-		jsonData =  request.read() 
-		data = json.loads(jsonData)
-		barcodeNumber = data['barcodeNumber']
-		name = data['Name']
-		logger.info('Json decoded while adding barcode')
-		addBarcode(barcodeNumber,name)
-		
+	if Barcode.objects.filter(barcode = barcodeNumberIn).count != 0:
+		addBarcode.barcode = barcodeNumberIn
+		addBarcode.barcodeName = nameIn
+		addBarcode.save()
+		logger.info('Barcode added')
+			
