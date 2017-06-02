@@ -7,17 +7,10 @@ parser.add_argument("url", help="Base url for tokens server")
 args = parser.parse_args()
 
 root = tk.Tk()
-root.attributes('-fullscreen', True)
-root.title("Token Count")
-countLabel = tk.Label(root)
+root.title("Add Barcode")
 
-def incrementCountForVendor(event):
-    purchasePostRes = requests.post(args.url, data = json.dumps({'barcodeNumber':entrytext.get(), 'vendorName':'V1'}))
-    if purchasePostRes.status_code == 200:
-        countLabel.config(text = requests.get(args.url+'?vendorName=V1').text, font = '100')
-    else:
-        countLabel.config(text = 'Could not validate barcode ' + str(entrytext.get()), font = '100')
-    countLabel.pack()
+def barcodeAdd(event):
+    barcodeAddPostRes = requests.post(args.url, data = json.dumps({'barcodeNumber':entrytext.get(), 'barcodeName':''}))
     event.widget.delete(0, 'end')
 
 entrytext = tk.StringVar()

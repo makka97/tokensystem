@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-import datetime
-from datetime import datetime
 
 # Create your models here.
 class Vendor(models.Model):
