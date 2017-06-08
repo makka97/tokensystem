@@ -11,7 +11,7 @@ class Vendor(models.Model):
         return self.vendorName
 
 class Barcode(models.Model):
-    employeeId = models.IntegerField()
+    employeeId = models.IntegerField(default = 0)
     barcodeName = models.CharField(max_length=500)
     barcode = models.CharField(max_length=50)
 

@@ -80,7 +80,11 @@ class BarcodeView(View):
 		barcodeNumber = data['barcodeNumber']
 		name = data['Name']
 		logger.info('Json decoded while adding barcode')
-		addBarcodeNumber(barcodeNumber,name)
-		return HttpResponse(content='success', content_type='text/html', status=200, reason=None, charset=None)
-
+		
+		if addBarcodeNumber(barcodeNumber,name):
+			logger.info('Positive status')
+			return HttpResponse(content='success', content_type='text/html', status=200, reason=None, charset=None)
+		else:
+			logger.info('Negative status')
+			return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
 	

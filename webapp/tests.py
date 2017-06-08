@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 class validateTest1 (TestCase):
 
 	def validateTokenCountNoDate(self):
-		BarcodeView.addBarcode(1111,'B1')
-		BarcodeView.addBarcode(1112,'B2')
+		BarcodeView.addBarcodeNumber(1111,'B1')
+		BarcodeView.addBarcodeNumber(1112,'B2')
 
 		barcodevalidator.insertToken(1111,'V1')
 		barcodevalidator.insertToken(1112,'V1')
@@ -34,8 +34,8 @@ class validateTest2 (TestCase):
 
 	def tests(self):
 
-		BarcodeView.addBarcode(1111,'B1')
-		BarcodeView.addBarcode(1112,'B2')
+		BarcodeView.addBarcodeNumber(1111,'B1')
+		BarcodeView.addBarcodeNumber(1112,'B2')
 
 		date = datetime.now()
 		yesterday = datetime.now() + timedelta(days = -1)

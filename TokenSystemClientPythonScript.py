@@ -17,11 +17,12 @@ def incrementCountForVendor(event):
         countLabel.config(text = requests.get(args.url+'?vendorName=V1').text, font = '100')
     else:
         countLabel.config(text = 'Could not validate barcode ' + str(entrytext.get()) + requests.get(args.url+'?vendorName=V1').text, font = '100')
-    countLabel.pack()
+    countLabel.place(relx = 0.5, rely = 0.5, anchor = "center")
     event.widget.delete(0, 'end')
 
 entrytext = tk.StringVar()
 txBox = tk.Entry(root, textvariable=entrytext, width = 25)
 txBox.bind('<Return>', incrementCountForVendor)
-txBox.pack()
+txBox.place(relx = 0.5, rely = 0.25, anchor = "center")
+txBox.focus()
 root.mainloop()

@@ -1,0 +1,1 @@
+start /d "c:\Users\mmanojkumar\Desktop\TokenSystem" python manage.py SendMailCommand
