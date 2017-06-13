@@ -6,7 +6,7 @@ from django.db import connection
 
 # Create your models here.
 class TokenManager(models.Manager):
-    def get_token_count_by_date(self):
+    def all(self):
         #Create Query
         cursor = connection.cursor()
         cursor.execute("""select t.vendor_id, date(t.tokenDateTime), count(*) from webapp_token t group by t.vendor_id, date(t.tokenDateTime)""")
@@ -46,8 +46,13 @@ class Token(models.Model):
     tokenDateTime = models.DateTimeField()
 
     objects = models.Manager()
-    token_count_objects = TokenManager()
+    
 
+class DailyCountOfTokens(Token):
+    class Meta:
+        proxy = True
+
+    objects = TokenManager()
 
 
 
