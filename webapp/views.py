@@ -63,7 +63,7 @@ class Purchase(View):
 			try:
 				numberOfTokens = barcodevalidator.countToken(startDate, endDate, barcode, vendorName)
 				logger.info('No error thrown')
-				tokenCount = {'tokencount': numberOfTokens}
+				tokenCount = {'tokencount': str(numberOfTokens)}
 				jsonTokenCount = json.dumps(tokenCount)
 				logger.info('Coded to json')
 				return JsonResponse(jsonTokenCount, safe=False)
