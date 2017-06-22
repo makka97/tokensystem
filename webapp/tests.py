@@ -41,19 +41,19 @@ class validateTest2 (TestCase):
 		yesterday = datetime.now() + timedelta(days = -1)
 		tomorrow = datetime.now() + timedelta(days = 1)
 		
-		insertDateTime = Token(tokenDateTime = yesterday, vendor = Vendor.objects.get(vendorName = 'V1'), barcode= Barcode.objects.get(barcode = 1111))
+		insertDateTime = Token(tokenDateTime = yesterday, vendor = Vendor.objects.get(id = 1), barcode= Barcode.objects.get(barcode = 1111))
 		insertDateTime.save()
 
-		insertDateTime = Token(tokenDateTime = date, vendor = Vendor.objects.get(vendorName = 'V1'), barcode = Barcode.objects.get(barcode = 1111))
+		insertDateTime = Token(tokenDateTime = date, vendor = Vendor.objects.get(id = 1), barcode = Barcode.objects.get(barcode = 1111))
 		insertDateTime.save()
 
-		insertDateTime = Token(tokenDateTime = tomorrow, vendor = Vendor.objects.get(vendorName = 'V1'), barcode = Barcode.objects.get(barcode = 1111))
+		insertDateTime = Token(tokenDateTime = tomorrow, vendor = Vendor.objects.get(id = 1), barcode = Barcode.objects.get(barcode = 1111))
 		insertDateTime.save()
 
-		insertDateTime = Token(tokenDateTime = date, vendor = Vendor.objects.get(vendorName = 'V1'), barcode = Barcode.objects.get(barcode = 1112))
+		insertDateTime = Token(tokenDateTime = date, vendor = Vendor.objects.get(id = 1), barcode = Barcode.objects.get(barcode = 1112))
 		insertDateTime.save()
 
-		insertDateTime = Token(tokenDateTime = tomorrow, vendor = Vendor.objects.get(vendorName = 'V2'), barcode = Barcode.objects.get(barcode = 1112))
+		insertDateTime = Token(tokenDateTime = tomorrow, vendor = Vendor.objects.get(id = 2), barcode = Barcode.objects.get(barcode = 1112))
 		insertDateTime.save()
 
 
