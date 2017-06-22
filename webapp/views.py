@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.generic import View
+from django.views.generic.list import ListView
 from django.db import models
 import json
 from webapp import barcodevalidator
-from webapp.models import Vendor, Token, Barcode
+from webapp.models import Vendor, Token, Barcode, DailyCountOfToken
 import datetime
 
 from django.views.decorators.csrf import csrf_exempt
@@ -26,15 +27,16 @@ def index(request):
 @method_decorator(csrf_exempt, name='dispatch')
 class Purchase(View):
 
+	@csrf_exempt
 	def post(self, request):
 		jsonData =  request.read() 
 		data = json.loads(jsonData)
 		barcodeNumber = data['barcodeNumber']
-		vendorName = data['vendorName']
+		vendorId = data['vendorId']
 		logger.info('Finished decoding Json POST request')
 
 		if barcodevalidator.validateBarcode(barcodeNumber):
-			barcodevalidator.insertToken(barcodeNumber, vendorName)
+			barcodevalidator.insertToken(barcodeNumber, vendorId)
 			logger.info('Validating and inserting done')
 			return HttpResponse(content='success', content_type='text/html', status=200, reason=None, charset=None)
 		else:
@@ -46,22 +48,22 @@ class Purchase(View):
 		startDate = request.GET.get('startDate')
 		endDate = request.GET.get('endDate')
 		barcode = request.GET.get('barcode')
-		vendorName = request.GET.get('vendorName')
+		vendorId = request.GET.get('vendorId')
 		logger.info('Finished decoding Json GET request')
 
-		if vendorName is None:
+		if vendorId is None:
 			jsonTokenCount = barcodevalidator.countAllVendorTokens(barcode)
 			logger.info('Vendor field is blank')
 			return JsonResponse(jsonTokenCount, safe=False)
 
-		elif Vendor.objects.filter(vendorName = vendorName).count == 0 :
+		elif Vendor.objects.filter(id = vendorId).count == 0 :
 			logger.info('Invalid vendor')
 			return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
 		
 		else:
 			logger.info('Vendor given')
 			try:
-				numberOfTokens = barcodevalidator.countToken(startDate, endDate, barcode, vendorName)
+				numberOfTokens = barcodevalidator.countToken(startDate, endDate, barcode, vendorId)
 				logger.info('No error thrown')
 				tokenCount = {'tokencount': str(numberOfTokens)}
 				jsonTokenCount = json.dumps(tokenCount)
@@ -87,4 +89,5 @@ class BarcodeView(View):
 		else:
 			logger.info('Negative status')
 			return HttpResponse(content='failure', content_type='text/html', status=400, reason=None, charset=None)
-	
+
+

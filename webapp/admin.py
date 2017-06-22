@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from webapp.models import Vendor, Barcode, Token, DailyCountOfTokens
+from webapp.models import Vendor, Barcode, Token, DailyCountOfToken
 from django.db.models import Count
 
 from import_export import resources
@@ -45,24 +45,15 @@ class TokenAdminWithImportExport(ImportExportModelAdmin):
 
 	#resource_class = TokenAdminResource
 
-class DailyCountOfTokensAdmin(admin.ModelAdmin):
+class DailyCountOfTokensAdmin(ImportExportModelAdmin):
 
-	list_display = ('vendor_name', 'token_date', 'num_count')
+	list_display = ('vendor_name', 'num_count', 'token_date')
 
-	def vendor_name(self, obj):
-		return self._vendor_cache.vendorName
+	def has_add_permission(self, request, obj=None):
+		return False
 
-	def token_date(self, obj):
-		return self.tokenDateTime
-
-	def num_count(self, obj):
-		return self.num_count
-
-	def get_queryset(self, request):
-		qs = DailyCountOfTokens.objects.all()
-		#return super(DailyCountOfTokensAdmin, self).get_queryset(request)
-		return qs
-
+	def has_delete_permission(self, request, obj=None):
+		return False
 
 class VendorAdmin(admin.ModelAdmin):
 	list_display = ('vendor_name', 'vendor_id')
@@ -75,5 +66,5 @@ class VendorAdmin(admin.ModelAdmin):
 
 admin.site.register(Barcode, BarcodeList)
 admin.site.register(Token, TokenAdminWithImportExport)
-admin.site.register(DailyCountOfTokens, DailyCountOfTokensAdmin)
+admin.site.register(DailyCountOfToken, DailyCountOfTokensAdmin)
 admin.site.register(Vendor, VendorAdmin)

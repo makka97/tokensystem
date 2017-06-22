@@ -16,14 +16,14 @@ def validateBarcode (barcodeIn):
 	valid = Barcode.objects.filter(barcode = barcodeIn).count()
 	return valid != 0
 
-def insertToken (barcodeIn, vendorNameIn):
+def insertToken (barcodeIn, vendorIdIn):
 	barcode = Barcode.objects.get(barcode = barcodeIn)
-	vendor = Vendor.objects.get(vendorName = vendorNameIn)
+	vendor = Vendor.objects.get(id = vendorIdIn)
 	insertDateTime = Token(tokenDateTime = datetime.now(), vendor = vendor, barcode = barcode)
 	insertDateTime.save()
 	logger.info('Token inserted')	
 
-def countToken(startDateIn, endDateIn, barcodeIn, vendorName):
+def countToken(startDateIn, endDateIn, barcodeIn, vendorId):
 	startDate = datetime(datetime.now().year, datetime.now().month, datetime.now().day)
 	endDate = datetime.now()
 
@@ -36,9 +36,9 @@ def countToken(startDateIn, endDateIn, barcodeIn, vendorName):
 		logger.info('End date is given date')
 
 	if barcodeIn is not None:
-		numberOfTokens = Token.objects.filter(vendor__vendorName=vendorName).filter(barcode__barcode=barcodeIn).filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
+		numberOfTokens = Token.objects.filter(vendor__id=vendorId).filter(barcode__barcode=barcodeIn).filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
 	else:
-		numberOfTokens = Token.objects.filter(vendor__vendorName=vendorName).filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
+		numberOfTokens = Token.objects.filter(vendor__id=vendorId).filter(tokenDateTime__gte = startDate).filter(tokenDateTime__lte = endDate).count()
 		logger.info('Barcode is not given when vendor is given')	
 	
 	return numberOfTokens

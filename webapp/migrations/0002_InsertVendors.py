@@ -11,6 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-       migrations.RunSQL("INSERT INTO webapp_Vendor (id, vendorName) VALUES (1, 'V1');"),
-       migrations.RunSQL("INSERT INTO webapp_Vendor (id, vendorName) VALUES (2, 'V2');"),
+       migrations.RunSQL("INSERT INTO webapp_Vendor (id, vendorName) VALUES (1, 'SP Info City');"),
+       migrations.RunSQL("INSERT INTO webapp_Vendor (id, vendorName) VALUES (2, 'Ramanujam');"),
     ]

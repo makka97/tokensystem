@@ -17,18 +17,18 @@ class validateTest1 (TestCase):
 		BarcodeView.addBarcodeNumber(1111,'B1')
 		BarcodeView.addBarcodeNumber(1112,'B2')
 
-		barcodevalidator.insertToken(1111,'V1')
-		barcodevalidator.insertToken(1112,'V1')
-		barcodevalidator.insertToken(1111,'V2')
+		barcodevalidator.insertToken(1111,1)
+		barcodevalidator.insertToken(1112,1)
+		barcodevalidator.insertToken(1111,2)
 
 		print "barcode added!"
 
-		self.assertEqual(barcodevalidator.countToken(None,None,None,'V1'), 2)
+		self.assertEqual(barcodevalidator.countToken(None,None,None,1), 2)
 
-		logger.info("No Dates, barcode: 1111, vendor v1 " + str(barcodevalidator.countToken(None,None,1111,'V1'))) 
-		self.assertEqual(barcodevalidator.countToken(None,None,1111,'V1'), 1)
+		logger.info("No Dates, barcode: 1111, vendor v1 " + str(barcodevalidator.countToken(None,None,1111,1))) 
+		self.assertEqual(barcodevalidator.countToken(None,None,1111,1), 1)
 
-		self.assertEqual(barcodevalidator.countToken(None,None,1112,'V1'), 1)
+		self.assertEqual(barcodevalidator.countToken(None,None,1112,1), 1)
 
 class validateTest2 (TestCase):
 
@@ -57,13 +57,13 @@ class validateTest2 (TestCase):
 		insertDateTime.save()
 
 
-		self.assertEqual(barcodevalidator.countToken(None,None,None,'V1'), 2)
+		self.assertEqual(barcodevalidator.countToken(None,None,None,1), 2)
 
-		self.assertEqual(barcodevalidator.countToken(None,date.strftime("%m/%d/%Y %H:%M:%S"),None,'V1'), 2)
+		self.assertEqual(barcodevalidator.countToken(None,date.strftime("%m/%d/%Y %H:%M:%S"),None,1), 2)
 
-		self.assertEqual(barcodevalidator.countToken(yesterday.strftime("%m/%d/%Y %H:%M:%S"),date.strftime("%m/%d/%Y %H:%M:%S"),1111,'V1'), 2)
+		self.assertEqual(barcodevalidator.countToken(yesterday.strftime("%m/%d/%Y %H:%M:%S"),date.strftime("%m/%d/%Y %H:%M:%S"),1111,1), 2)
 
-		self.assertEqual(barcodevalidator.countToken(date.strftime("%m/%d/%Y %H:%M:%S"),tomorrow.strftime("%m/%d/%Y %H:%M:%S"),1112,'V1'), 1)
+		self.assertEqual(barcodevalidator.countToken(date.strftime("%m/%d/%Y %H:%M:%S"),tomorrow.strftime("%m/%d/%Y %H:%M:%S"),1112,1), 1)
 
 
 
