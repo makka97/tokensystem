@@ -22,9 +22,9 @@ class BarcodeList(admin.ModelAdmin):
 
 class TokenAdminWithImportExport(ImportExportModelAdmin):
 
-	list_display = ('vendor_name', 'barcodeNumber', 'tokenDateTime', 'employee_id')
+	list_display = ('vendor_name', 'barcodeNumber', 'tokenDateTime', 'employee_name')
 
-	list_filter = ('vendor__vendorName', 'barcode__employeeId',)
+	list_filter = ('vendor__vendorName', 'barcode__barcodeName',)
 
 	date_hierarchy = 'tokenDateTime'
 	
@@ -34,8 +34,8 @@ class TokenAdminWithImportExport(ImportExportModelAdmin):
 	def barcodeNumber(self, obj):
 		return obj.barcode.barcode
 
-	def employee_id(self, obj):
-		return obj.barcode.employeeId
+	def employee_name(self, obj):
+		return obj.barcode.barcodeName
 
 	def has_add_permission(self, request, obj=None):
 		return False
