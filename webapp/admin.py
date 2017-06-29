@@ -49,6 +49,8 @@ class DailyCountOfTokensAdmin(ImportExportModelAdmin):
 
 	list_display = ('vendor_name', 'num_count', 'token_date')
 
+	list_filter = ('vendor_name',)
+
 	date_hierarchy = 'token_date'
 
 	def has_add_permission(self, request, obj=None):
