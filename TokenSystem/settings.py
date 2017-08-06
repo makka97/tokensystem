@@ -160,8 +160,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 
 # Optional SMTP authentication information for EMAIL_HOST.
-EMAIL_HOST_USER = 'malavikanair.nairm@gmail.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'viasat.tokensystem@gmail.com'
+EMAIL_HOST_PASSWORD = 'donotaskforthis'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Internationalization

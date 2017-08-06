@@ -6,16 +6,16 @@ import datetime
 from datetime import datetime
 
 class Command(BaseCommand):
-	help = 'Sends monthly mail to Admin'
+	help = 'Sends daily mail to Admin'
 
  	def handle(self, *args, **options):
  		email = EmailMessage(
-			'Monthly Update',
-			'Token Count for the Month',
+			'Daily Update',
+			'Token Count for the Day',
 			'user@gmail.com',
-			to = ['malavika.manojkumar@viasat.com'],
+			to = ['dinesh.gaglani@viasat.com'],
 		)
 		currentMonth = datetime.now().strftime('%m')
 		currentYear = datetime.now().year
-		email.attach_file('C:/Users/mmanojkumar/Desktop/TokenSystem/%s-%s.xls' %(currentMonth,currentYear)) 
+		#email.attach_file('C:/Users/mmanojkumar/Desktop/TokenSystem/%s-%s-%s.xls' %(currentdate,currentMonth,currentYear)) 
  		email.send()
