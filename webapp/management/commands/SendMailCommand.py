@@ -17,5 +17,6 @@ class Command(BaseCommand):
 		)
 		currentMonth = datetime.now().strftime('%m')
 		currentYear = datetime.now().year
-		#email.attach_file('C:/Users/mmanojkumar/Desktop/TokenSystem/%s-%s-%s.xls' %(currentdate,currentMonth,currentYear)) 
+		currentDay = datetime.now().strftime('%d')
+		email.attach_file('C:/Users/dgaglani/tokensystem/%s-%s-%s.xls' %(currentMonth,currentDay,currentYear)) 
  		email.send()
