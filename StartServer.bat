@@ -1,0 +1,1 @@
+start /d "C:\Users\dgaglani\tokensystem" python manage.py runserver 0.0.0.0:8000

@@ -12,11 +12,11 @@ class Command(BaseCommand):
  		email = EmailMessage(
 			'Daily Update',
 			'Token Count for the Day',
-			'user@gmail.com',
-			to = ['dinesh.gaglani@viasat.com'],
+			'barcodesystem@viasat.com',
+			to = ['dinesh.gaglani@viasat.com','dinesh.ramalingam@viasat.com'],
 		)
 		currentMonth = datetime.now().strftime('%m')
 		currentYear = datetime.now().year
 		currentDay = datetime.now().strftime('%d')
-		email.attach_file('C:/Users/dgaglani/tokensystem/%s-%s-%s.xls' %(currentMonth,currentDay,currentYear)) 
+		email.attach_file('C:/Users/dgaglani/tokensystem/%s-%s-%s.txt' %(currentMonth,currentDay,currentYear)) 
  		email.send()

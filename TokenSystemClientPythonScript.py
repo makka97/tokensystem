@@ -17,7 +17,7 @@ countLabel = tk.Label(root)
 #countLabel = tk.Label(root, text = jsonDataDict['tokencount'], font = (None, 150), fg = 'green' )
 
 def incrementCountForVendor(event):
-    purchasePostRes = requests.post(args.url, data = json.dumps({'barcodeNumber':entrytext.get(), 'vendorId':1}))
+    purchasePostRes = requests.post(args.url, data = json.dumps({'barcodeNumber':entrytext.get(), 'vendorId':2}))
     jsonData = json.loads(requests.get(args.url+'?vendorId=1').text)
     jsonDataDict = ast.literal_eval(jsonData)
     if purchasePostRes.status_code == 200:
